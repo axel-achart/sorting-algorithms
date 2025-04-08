@@ -14,12 +14,13 @@ from source.algos.insertion import insertion_sort
 from source.algos.heapsort import heapsort_sort
 from source.algos.fusion import fusion_sort
 from source.algos.fast import fast_sort
-from source.algos.compsort import compsort_sort
+from source.algos.combsort import compsort_sort
 
 # Dictionary Algorithm Sort
 algorithms = {
     "Selection Sort": selection_sort,
-    "Bubble Sort": bubble_sort
+    "Bubble Sort": bubble_sort,
+    "Fusion Sort": fusion_sort
 }
 
 class SortingVisualizer:
@@ -80,6 +81,8 @@ class SortingVisualizer:
             self.animate_bubble_sort()
         elif algo_name == "Selection Sort":
             self.animate_selection_sort()
+        elif algo_name == "Fusion Sort":
+            self.animate_fusion_sort()
 
     def animate_bubble_sort(self):
         print("\n Bubble Sort launched...")
@@ -133,6 +136,26 @@ class SortingVisualizer:
         save_history("Selection Sort", self.data, elapsed)
         self.execution_times["Selection Sort"] = elapsed
     
+    def animate_fusion_sort(self):
+        print("\nFusion Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+
+        # Call Fusion sort function
+        self.data = fusion_sort(self.data)
+        self.draw_data(self.data, color=COLOR_THREE)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Fusion Sort", self.data, elapsed)
+        self.execution_times["Fusion Sort"] = elapsed
+
     def show_history(self):  
         try:
             with open("source/graphical/history.json", "r", encoding="utf-8") as f:

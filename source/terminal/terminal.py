@@ -4,23 +4,23 @@ import time
 from source.sorting.sorting import sorting_algorithms
 
 def run_terminal_interface():
-    print("📚 Bienvenue dans le trieur de papyrus d'Héron !")
-    print("Choisissez un algorithme de tri :")
+    print("Welcome to the Papyri sort")
+    print("Choose an algorithm sort :")
 
     for key in sorting_algorithms:
         print(f"- {key}")
 
-    algo_name = input("Nom de l’algorithme : ").strip().lower()
+    algo_name = input("Algorithm name : ").strip().lower()
 
     if algo_name not in sorting_algorithms:
-        print("❌ Algorithme non reconnu.")
+        print("Algorithm not found")
         return
 
     try:
-        input_str = input("Entrez une liste de nombres séparés par des virgules :\nExemple → 10, 5, 3, 8\n> ")
+        input_str = input("Enter a list of numbers to sort :\nExample → 10, 5, 3, 8\n> ")
         user_list = [float(x.strip()) for x in input_str.split(",")]
     except ValueError:
-        print("❌ Format invalide. Veuillez entrer uniquement des nombres.")
+        print("Invalid format, please retry")
         return
 
     tri = sorting_algorithms[algo_name]
@@ -31,5 +31,5 @@ def run_terminal_interface():
     end_time = time.perf_counter()
     elapsed_time = end_time - start_time
 
-    print(f"\n✅ Résultat trié avec '{algo_name}' : {result}")
-    print(f"⏱️ Temps d'exécution : {elapsed_time:.6f} secondes")
+    print(f"\nResult, list sorted '{algo_name}' : {result}")
+    print(f"Time to be sorted : {elapsed_time:.6f} seconds")

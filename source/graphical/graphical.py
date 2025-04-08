@@ -192,8 +192,10 @@ def save_history(algo_name, sorted_list, exec_time):
     try:
         with open("source/graphical/history.json", "r", encoding="utf-8") as f:
             data = json.load(f)
+
     except (FileNotFoundError, json.JSONDecodeError):
         data = []
+        print("Error reading history file. Creating a new one.")
 
     data.append(history_entry)
 

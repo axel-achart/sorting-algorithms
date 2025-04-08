@@ -14,12 +14,13 @@ from source.algos.insertion import insertion_sort
 from source.algos.heapsort import heapsort_sort
 from source.algos.fusion import fusion_sort
 from source.algos.fast import fast_sort
-from source.algos.compsort import compsort_sort
+from source.algos.comb_sort import comb_sort
 
 # Dictionary Algorithm Sort
 algorithms = {
     "Selection Sort": selection_sort,
-    "Bubble Sort": bubble_sort
+    "Bubble Sort": bubble_sort,
+    "Comb Sort": comb_sort
 }
 
 class SortingVisualizer:
@@ -80,6 +81,8 @@ class SortingVisualizer:
             self.animate_bubble_sort()
         elif algo_name == "Selection Sort":
             self.animate_selection_sort()
+        elif algo_name == "Comb Sort":
+            self.animate_comb_sort()
 
     def animate_bubble_sort(self):
         print("\n Bubble Sort launched...")
@@ -133,6 +136,41 @@ class SortingVisualizer:
         save_history("Selection Sort", self.data, elapsed)
         self.execution_times["Selection Sort"] = elapsed
     
+    def animate_comb_sort(self):
+        print("\nComb Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+
+        n = len(self.data)
+        gap = n
+        shrink = 1.3
+        swapped = True
+
+        while gap > 1 or swapped:
+            gap = int(gap / shrink)
+            if gap < 1:
+                gap = 1
+
+            swapped = False
+
+            for i in range(n - gap):
+                if self.data[i] > self.data[i + gap]:
+                    self.data[i], self.data[i + gap] = self.data[i + gap], self.data[i]
+                    swapped = True
+                    self.draw_data(self.data, color="green")
+                    time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} seconds")
+
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Comb Sort", self.data, elapsed)
+        self.execution_times["Comb Sort"] = elapsed
+
     def show_history(self):  
         try:
             with open("source/graphical/history.json", "r", encoding="utf-8") as f:

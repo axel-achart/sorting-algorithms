@@ -1,3 +1,4 @@
+from config import *
 import time
 
 def heapsort_sort(lst, draw_callback=None, delay=0.01):
@@ -42,7 +43,7 @@ def heapify(lst, heap_size, root_index, draw_callback=None, delay=0.01):
 
         # Optional: visualize the array after each swap
         if draw_callback:
-            draw_callback(lst)
+            draw_callback(lst, color=COLOR_SEVEN)
             time.sleep(delay)
 
         # Recursively heapify the affected subtree

@@ -1,5 +1,6 @@
 #  Diviser pour régner
 
+from config import *
 import time
 
 
@@ -32,7 +33,7 @@ def merge(left, right, draw_callback=None, delay=0):
     result.extend(right[j:])
 
     if draw_callback:
-        draw_callback(result)
+        draw_callback(result, color=COLOR_SIX)
         time.sleep(delay)
 
     return result

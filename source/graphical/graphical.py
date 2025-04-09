@@ -109,7 +109,7 @@ class SortingVisualizer:
             for j in range(0, n - i - 1):
                 if self.data[j] > self.data[j + 1]:
                     self.data[j], self.data[j + 1] = self.data[j + 1], self.data[j]
-                    self.draw_data(self.data, color=COLOR_TWO)
+                    self.draw_data(self.data, color=COLOR_ONE)
                     time.sleep(0.01)
 
         end = time.perf_counter()
@@ -138,7 +138,7 @@ class SortingVisualizer:
                 if self.data[j] < self.data[min_index]:
                     min_index = j
             self.data[i], self.data[min_index] = self.data[min_index], self.data[i]
-            self.draw_data(self.data, color=COLOR_THREE)
+            self.draw_data(self.data, color=COLOR_TWO)
             time.sleep(0.01)
 
         end = time.perf_counter()
@@ -167,7 +167,7 @@ class SortingVisualizer:
                 self.data[j+1] = self.data[j]
                 j = j - 1
             self.data[j+1] = key
-            self.draw_data(self.data, color="purple")
+            self.draw_data(self.data, color=COLOR_THREE)
             time.sleep(0.01)
 
         end = time.perf_counter()
@@ -190,7 +190,7 @@ class SortingVisualizer:
         bot = 0
         top = len(self.data) - 1
         fast(self.data,bot,top)
-        self.draw_data(self.data, color="purple")
+        self.draw_data(self.data, color=COLOR_FOUR)
         time.sleep(0.01)
 
         end = time.perf_counter()
@@ -228,7 +228,7 @@ class SortingVisualizer:
                 if self.data[i] > self.data[i + gap]:
                     self.data[i], self.data[i + gap] = self.data[i + gap], self.data[i]
                     swapped = True
-                    self.draw_data(self.data, color="green")
+                    self.draw_data(self.data, color=COLOR_FIVE)
                     time.sleep(0.01)
 
         end = time.perf_counter()

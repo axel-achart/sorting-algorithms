@@ -6,7 +6,7 @@ from source.algos.insertion import insertion_sort
 from source.algos.heapsort import heapsort_sort
 from source.algos.fusion import fusion_sort
 from source.algos.fast import fast_sort
-from source.algos.compsort import compsort_sort
+from source.algos.combsort import combsort_sort
 
 # Dictionary algorithm
 sorting_algorithms = {
@@ -16,5 +16,5 @@ sorting_algorithms = {
     "heapsort": heapsort_sort,
     "fusion": fusion_sort,
     "fast": fast_sort,
-    "compsort": compsort_sort
+    "compsort": combsort_sort
 }

@@ -41,7 +41,7 @@ class SortingVisualizer:
 
         tk.Button(control_frame, text="New List", command=self.generate_data).pack(side=tk.LEFT, padx=5)
         tk.Button(control_frame, text="Launch Sort", command=self.run_sort).pack(side=tk.LEFT, padx=5)
-        tk.Button(control_frame, text="View History", command=self.show_history).pack(side=tk.LEFT)
+        tk.Button(control_frame, text="View History", command=self.show_history).pack(side=tk.LEFT, padx=5)
         tk.Button(control_frame, text="Compare times", command=self.plot_execution_times).pack(side=tk.LEFT, padx=5)
 
         # Label to show the time taken to sort

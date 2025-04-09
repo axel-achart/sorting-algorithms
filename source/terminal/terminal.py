@@ -25,7 +25,6 @@ def run_terminal_interface():
 
     tri = sorting_algorithms[algo_name]
 
-    # Chronométrage du tri
     start_time = time.perf_counter()
     result = tri(user_list)
     end_time = time.perf_counter()

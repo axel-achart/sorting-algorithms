@@ -10,16 +10,19 @@ import matplotlib.pyplot as plt
 
 from source.algos.selection_sort import selection_sort
 from source.algos.bubble_sort import bubble_sort
-from source.algos.insertion import insertion_sort
+from source.algos.insertion import insertion
 from source.algos.heapsort import heapsort_sort
 from source.algos.fusion import fusion_sort
-from source.algos.fast import fast_sort
-from source.algos.combsort import compsort_sort
+from source.algos.fast import fast
+from source.algos.comb_sort import comb_sort
 
 # Dictionary Algorithm Sort
 algorithms = {
     "Selection Sort": selection_sort,
     "Bubble Sort": bubble_sort,
+    "Comb Sort": comb_sort,
+    "Fast Sort": fast,
+    "Insertion Sort":insertion,
     "Fusion Sort": fusion_sort,
     "Heap Sort": heapsort_sort
 }
@@ -86,11 +89,17 @@ class SortingVisualizer:
             self.animate_fusion_sort()
         elif algo_name == "Heap Sort":
             self.animate_heapsort()
+        elif algo_name == "Fast Sort":
+            self.animate_fast_sort()
+        elif algo_name == "Insertion Sort":
+            self.animate_insertion_sort()
+        elif algo_name == "Comb Sort":
+            self.animate_comb_sort()
 
     def animate_bubble_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")
 
-        print("\n Bubble Sort launched...")
+        print("\nBubble Sort launched...")
         print(f"Initial list : {self.data}")
 
         start = time.perf_counter()
@@ -113,7 +122,6 @@ class SortingVisualizer:
         self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
         save_history("Bubble Sort", self.data, elapsed)
         self.execution_times["Bubble Sort"] = elapsed
-
 
     def animate_selection_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")
@@ -139,7 +147,100 @@ class SortingVisualizer:
         print(f"List Sorted : {self.data}")
         print(f"Time to sorted : {elapsed:.6f} secondes")
 
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri par sélection", self.data, elapsed)
+        self.execution_times["Tri par sélection"] = elapsed
+
+    def animate_insertion_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
+        print("\nInsertion Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+
+        n = len(self.data)
+        for i in range(1,n):
+            key = self.data[i]
+            j = i - 1
+            while j >= 0 and self.data[j] > key:
+                self.data[j+1] = self.data[j]
+                j = j - 1
+            self.data[j+1] = key
+            self.draw_data(self.data, color="purple")
+            time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri par insertion", self.data, elapsed)
+        self.execution_times["Tri par insertion"] = elapsed
+
+    def animate_fast_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
+        print("\nFast Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+        bot = 0
+        top = len(self.data) - 1
+        fast(self.data,bot,top)
+        self.draw_data(self.data, color="purple")
+        time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri rapide", self.data, elapsed)
+        self.execution_times["Tri rapide"] = elapsed
+
+    
+    def animate_comb_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
+        print("\nComb Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+
+        n = len(self.data)
+        gap = n
+        shrink = 1.3
+        swapped = True
+
+        while gap > 1 or swapped:
+            gap = int(gap / shrink)
+            if gap < 1:
+                gap = 1
+
+            swapped = False
+
+            for i in range(n - gap):
+                if self.data[i] > self.data[i + gap]:
+                    self.data[i], self.data[i + gap] = self.data[i + gap], self.data[i]
+                    swapped = True
+                    self.draw_data(self.data, color="green")
+                    time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} seconds")
+
         self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Comb Sort", self.data, elapsed)
+        self.execution_times["Comb Sort"] = elapsed
+
         save_history("Selection Sort", self.data, elapsed)
         self.execution_times["Selection Sort"] = elapsed
         

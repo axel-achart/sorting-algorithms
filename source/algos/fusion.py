@@ -13,8 +13,6 @@ def fusion_sort(lst, draw_callback=None, delay=0):
 
     return merge(left, right, draw_callback, delay)
 
-
-
 def merge(left, right, draw_callback=None, delay=0):
     result = []
     i = j = 0

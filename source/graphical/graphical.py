@@ -88,6 +88,8 @@ class SortingVisualizer:
             self.animate_heapsort()
 
     def animate_bubble_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
         print("\n Bubble Sort launched...")
         print(f"Initial list : {self.data}")
 
@@ -114,6 +116,8 @@ class SortingVisualizer:
 
 
     def animate_selection_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
         print("\nSelection Sort launched...")
         print(f"Initial list : {self.data}")
 
@@ -140,6 +144,8 @@ class SortingVisualizer:
         self.execution_times["Selection Sort"] = elapsed
         
     def animate_fusion_sort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
         print("\nFusion Sort launched...")
         print(f"Initial list : {self.data}")
 
@@ -158,6 +164,8 @@ class SortingVisualizer:
         self.execution_times["Fusion Sort"] = elapsed
 
     def animate_heapsort(self):
+        self.time_label.config(text=f"Time to sorted : 0.000000 s")
+
         print("\nHeap Sort launched...")
         print(f"Initial list : {self.data}")
 

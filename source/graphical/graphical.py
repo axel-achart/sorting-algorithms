@@ -135,16 +135,14 @@ class SortingVisualizer:
         self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
         save_history("Selection Sort", self.data, elapsed)
         self.execution_times["Selection Sort"] = elapsed
-    
+        
     def animate_fusion_sort(self):
         print("\nFusion Sort launched...")
         print(f"Initial list : {self.data}")
 
         start = time.perf_counter()
 
-        # Call Fusion sort function
-        self.data = fusion_sort(self.data)
-        self.draw_data(self.data, color=COLOR_THREE)
+        self.data = fusion_sort(self.data, draw_callback=self.draw_data, delay=0.01)
 
         end = time.perf_counter()
         elapsed = end - start

@@ -139,9 +139,58 @@ class SortingVisualizer:
         print(f"List Sorted : {self.data}")
         print(f"Time to sorted : {elapsed:.6f} secondes")
 
-        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
-        save_history("Selection Sort", self.data, elapsed)
-        self.execution_times["Selection Sort"] = elapsed
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri par sélection", self.data, elapsed)
+        self.execution_times["Tri par sélection"] = elapsed
+
+    def animate_insertion_sort(self):
+        print("\n🔁 Tri par insertion lancé...")
+        print(f"Liste initiale : {self.data}")
+
+        start = time.perf_counter()
+
+        n = len(self.data)
+        for i in range(1,n):
+            key = self.data[i]
+            j = i - 1
+            while j >= 0 and self.data[j] > key:
+                self.data[j+1] = self.data[j]
+                j = j - 1
+            self.data[j+1] = key
+            self.draw_data(self.data, color="purple")
+            time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"✅ Liste triée : {self.data}")
+        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri par insertion", self.data, elapsed)
+        self.execution_times["Tri par insertion"] = elapsed
+
+    def animate_fast_sort(self):
+        print("\n🔁 Tri rapide lancé...")
+        print(f"Liste initiale : {self.data}")
+
+        start = time.perf_counter()
+        bot = 0
+        top = len(self.data) - 1
+        fast(self.data,bot,top)
+        self.draw_data(self.data, color="purple")
+        time.sleep(0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"✅ Liste triée : {self.data}")
+        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
+        save_history("Tri rapide", self.data, elapsed)
+        self.execution_times["Tri rapide"] = elapsed
+
     
     def animate_comb_sort(self):
         print("\nComb Sort launched...")

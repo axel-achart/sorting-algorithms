@@ -20,7 +20,8 @@ from source.algos.combsort import compsort_sort
 algorithms = {
     "Selection Sort": selection_sort,
     "Bubble Sort": bubble_sort,
-    "Fusion Sort": fusion_sort
+    "Fusion Sort": fusion_sort,
+    "Heap Sort": heapsort_sort
 }
 
 class SortingVisualizer:
@@ -83,6 +84,8 @@ class SortingVisualizer:
             self.animate_selection_sort()
         elif algo_name == "Fusion Sort":
             self.animate_fusion_sort()
+        elif algo_name == "Heap Sort":
+            self.animate_heapsort()
 
     def animate_bubble_sort(self):
         print("\n Bubble Sort launched...")
@@ -153,6 +156,25 @@ class SortingVisualizer:
         self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
         save_history("Fusion Sort", self.data, elapsed)
         self.execution_times["Fusion Sort"] = elapsed
+
+    def animate_heapsort(self):
+        print("\nHeap Sort launched...")
+        print(f"Initial list : {self.data}")
+
+        start = time.perf_counter()
+
+        self.data = heapsort_sort(self.data, draw_callback=self.draw_data, delay=0.01)
+
+        end = time.perf_counter()
+        elapsed = end - start
+
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
+
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Heap Sort", self.data, elapsed)
+        self.execution_times["Heap Sort"] = elapsed
+
 
     def show_history(self):  
         try:

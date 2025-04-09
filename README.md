@@ -28,15 +28,15 @@ By Dina YAHIAOUI, Hippolyte GESLAIN, Axel ACHART
 ---
 
 ## Project structure
-sorting-algorithms/ 
-├── source/ 
-│ ├── algos/ # One file per sorting algorithm 
-│ ├── graphical/ # Tkinter interface + history file
-│ ├── terminal/ # Terminal mode 
-│ ├── sorting/ # Central sorting function 
-├──main.py # Launch file 
-├── config.py 
-├── README.md
+sorting-algorithms/ </br>
+├── source/ </br>
+│ ├── algos/ # One file per sorting algorithm </br>
+│ ├── graphical/ # Tkinter interface + history file </br>
+│ ├── terminal/ # Terminal mode </br>
+│ ├── sorting/ # Central sorting function </br>
+├──main.py # Launch file </br>
+├── config.py </br>
+├── README.md </br>
 
 ---
 

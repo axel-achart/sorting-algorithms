@@ -1,51 +1,57 @@
 # source/graphical/graphical.py
 
+from config import *
 import tkinter as tk
 import random
 import time
 import json
 from datetime import datetime
 import matplotlib.pyplot as plt
+
 from source.algos.selection_sort import selection_sort
 from source.algos.bubble_sort import bubble_sort
 from source.algos.fast import fast,partition
 from source.algos.insertion import insertion
+from source.algos.heapsort import heapsort_sort
+from source.algos.fusion import fusion_sort
+from source.algos.comb_sort import comb_sort
 
-# Dictionnaire pour sélectionner dynamiquement le tri
+# Dictionary Algorithm Sort
 algorithms = {
-    "Tri à bulles": bubble_sort,
-    "Tri par sélection": selection_sort,
-    "Tri rapide":fast,
-    "Tri par insertion":insertion
+    "Selection Sort": selection_sort,
+    "Bubble Sort": bubble_sort,
+    "Comb Sort": comb_sort,
+    "Fast Sort":fast,
+    "Insertion Sort":insertion
 }
 
 class SortingVisualizer:
     def __init__(self, root):
         self.root = root
-        self.root.title("Visualisation des algorithmes de tri")
-        self.canvas = tk.Canvas(root, width=800, height=400, bg="white")
+        self.root.title("Visualisation Algorithms Sort")
+        self.canvas = tk.Canvas(root, width=ROOT_WIDTH, height=ROOT_HEIGHT, bg=BACKGROUND)
         self.canvas.pack(padx=10, pady=10)
         self.execution_times = {}
         
-       # Contrôles
+       # Controls
         control_frame = tk.Frame(root)
         control_frame.pack()
 
-        self.algo_var = tk.StringVar(value="Tri à bulles")
+        self.algo_var = tk.StringVar(value="Bubble Sort")
         tk.OptionMenu(control_frame, self.algo_var, *algorithms.keys()).pack(side=tk.LEFT, padx=5)
 
-        tk.Button(control_frame, text="Nouvelle liste", command=self.generate_data).pack(side=tk.LEFT, padx=5)
-        tk.Button(control_frame, text="Lancer le tri", command=self.run_sort).pack(side=tk.LEFT, padx=5)
-        tk.Button(control_frame, text="Voir l’historique", command=self.show_history).pack(side=tk.LEFT)
-        tk.Button(control_frame, text="Comparer les temps", command=self.plot_execution_times).pack(side=tk.LEFT, padx=5)
+        tk.Button(control_frame, text="New List", command=self.generate_data).pack(side=tk.LEFT, padx=5)
+        tk.Button(control_frame, text="Launch Sort", command=self.run_sort).pack(side=tk.LEFT, padx=5)
+        tk.Button(control_frame, text="View History", command=self.show_history).pack(side=tk.LEFT)
+        tk.Button(control_frame, text="Compare times", command=self.plot_execution_times).pack(side=tk.LEFT, padx=5)
 
-        # Label pour afficher le temps
-        self.time_label = tk.Label(root, text="Temps d'exécution : 0.000000 s", font=("Arial", 12))
+        # Label to show the time taken to sort
+        self.time_label = tk.Label(root, text="Time to sort : 0.000000 s", font=FONT)
         self.time_label.pack(pady=5)
 
-        # Taille de la liste (entre 10 et 100)
+        # Size of the list
         self.list_size = tk.IntVar(value=50)
-        tk.Label(control_frame, text="Taille de la liste").pack(side=tk.LEFT, padx=5)
+        tk.Label(control_frame, text="List Size").pack(side=tk.LEFT, padx=5)
         tk.Scale(control_frame, from_=10, to=100, orient=tk.HORIZONTAL, variable=self.list_size).pack(side=tk.LEFT, padx=5)
 
 
@@ -58,7 +64,7 @@ class SortingVisualizer:
         self.draw_data(self.data)
 
 
-    def draw_data(self, data, color="blue"):
+    def draw_data(self, data, color=COLOR_ONE):
         self.canvas.delete("all")
         width = 800 / len(data)
         for i, value in enumerate(data):
@@ -71,21 +77,23 @@ class SortingVisualizer:
 
     def run_sort(self):
         algo_name = self.algo_var.get()
-        self.data = self.original_data.copy()  # ⬅️ On repart toujours de la même liste
+        self.data = self.original_data.copy() 
         self.draw_data(self.data)
-        if algo_name == "Tri à bulles":
+        if algo_name == "Bubble Sort":
             self.animate_bubble_sort()
-        elif algo_name == "Tri par sélection":
+        elif algo_name == "Selection Sort":
             self.animate_selection_sort()
-        elif algo_name == "Tri rapide":
+        elif algo_name == "Fast Sort":
             self.animate_fast_sort()
-        elif algo_name == "Tri par insertion":
+        elif algo_name == "Insertion Sort":
             self.animate_insertion_sort()
         
+        elif algo_name == "Comb Sort":
+            self.animate_comb_sort()
 
     def animate_bubble_sort(self):
-        print("\n🔁 Tri à bulles lancé...")
-        print(f"Liste initiale : {self.data}")
+        print("\n Bubble Sort launched...")
+        print(f"Initial list : {self.data}")
 
         start = time.perf_counter()
 
@@ -94,24 +102,24 @@ class SortingVisualizer:
             for j in range(0, n - i - 1):
                 if self.data[j] > self.data[j + 1]:
                     self.data[j], self.data[j + 1] = self.data[j + 1], self.data[j]
-                    self.draw_data(self.data, color="orange")
+                    self.draw_data(self.data, color=COLOR_TWO)
                     time.sleep(0.01)
 
         end = time.perf_counter()
         elapsed = end - start
 
-        print(f"✅ Liste triée : {self.data}")
-        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
 
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri à bulles", self.data, elapsed)
-        self.execution_times["Tri à bulles"] = elapsed
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Bubble Sort", self.data, elapsed)
+        self.execution_times["Bubble Sort"] = elapsed
 
 
     def animate_selection_sort(self):
-        print("\n🔁 Tri par sélection lancé...")
-        print(f"Liste initiale : {self.data}")
+        print("\nSelection Sort launched...")
+        print(f"Initial list : {self.data}")
 
         start = time.perf_counter()
 
@@ -122,68 +130,54 @@ class SortingVisualizer:
                 if self.data[j] < self.data[min_index]:
                     min_index = j
             self.data[i], self.data[min_index] = self.data[min_index], self.data[i]
-            self.draw_data(self.data, color="purple")
+            self.draw_data(self.data, color=COLOR_THREE)
             time.sleep(0.01)
 
         end = time.perf_counter()
         elapsed = end - start
 
-        print(f"✅ Liste triée : {self.data}")
-        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} secondes")
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri par sélection", self.data, elapsed)
-        self.execution_times["Tri par sélection"] = elapsed
-
-    def animate_insertion_sort(self):
-        print("\n🔁 Tri par insertion lancé...")
-        print(f"Liste initiale : {self.data}")
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Selection Sort", self.data, elapsed)
+        self.execution_times["Selection Sort"] = elapsed
+    
+    def animate_comb_sort(self):
+        print("\nComb Sort launched...")
+        print(f"Initial list : {self.data}")
 
         start = time.perf_counter()
 
         n = len(self.data)
-        for i in range(1,n):
-            key = self.data[i]
-            j = i - 1
-            while j >= 0 and self.data[j] > key:
-                self.data[j+1] = self.data[j]
-                j = j - 1
-            self.data[j+1] = key
-            self.draw_data(self.data, color="purple")
-            time.sleep(0.01)
+        gap = n
+        shrink = 1.3
+        swapped = True
+
+        while gap > 1 or swapped:
+            gap = int(gap / shrink)
+            if gap < 1:
+                gap = 1
+
+            swapped = False
+
+            for i in range(n - gap):
+                if self.data[i] > self.data[i + gap]:
+                    self.data[i], self.data[i + gap] = self.data[i + gap], self.data[i]
+                    swapped = True
+                    self.draw_data(self.data, color="green")
+                    time.sleep(0.01)
 
         end = time.perf_counter()
         elapsed = end - start
 
-        print(f"✅ Liste triée : {self.data}")
-        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
+        print(f"List Sorted : {self.data}")
+        print(f"Time to sorted : {elapsed:.6f} seconds")
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri par insertion", self.data, elapsed)
-        self.execution_times["Tri par insertion"] = elapsed
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Comb Sort", self.data, elapsed)
+        self.execution_times["Comb Sort"] = elapsed
 
-    def animate_fast_sort(self):
-        print("\n🔁 Tri rapide lancé...")
-        print(f"Liste initiale : {self.data}")
-
-        start = time.perf_counter()
-        bot = self.data[0]
-        top = self.data[-1]
-        fast(self.data,bot,top)
-        self.draw_data(self.data, color="purple")
-        time.sleep(0.01)
-
-        end = time.perf_counter()
-        elapsed = end - start
-
-        print(f"✅ Liste triée : {self.data}")
-        print(f"⏱️ Temps d'exécution : {elapsed:.6f} secondes")
-
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri rapide", self.data, elapsed)
-        self.execution_times["Tri rapide"] = elapsed
-
-    
     def show_history(self):  
         try:
             with open("source/graphical/history.json", "r", encoding="utf-8") as f:
@@ -192,8 +186,8 @@ class SortingVisualizer:
             data = []
 
         history_window = tk.Toplevel(self.root)
-        history_window.title("Historique des tris")
-        history_window.geometry("600x400")
+        history_window.title("History of sorting algorithms")
+        history_window.geometry(SIZE_WINDOW)
 
         text_widget = tk.Text(history_window, wrap=tk.WORD)
         text_widget.pack(expand=True, fill=tk.BOTH)
@@ -204,17 +198,17 @@ class SortingVisualizer:
         scrollbar.config(command=text_widget.yview)
 
         if not data:
-            text_widget.insert(tk.END, "Aucun tri enregistré pour le moment.")
+            text_widget.insert(tk.END, "Any sorting history found.")
         else:
             for i, entry in enumerate(data[::-1], 1):
                 text_widget.insert(tk.END,
                     f"{i}. {entry['timestamp']} - {entry['algo']}\n"
-                    f"   Résultat : {entry['result']}\n"
-                    f"   Temps : {entry['time']} s\n\n"
+                    f"   Results : {entry['result']}\n"
+                    f"   Time : {entry['time']} s\n\n"
                 )
     def plot_execution_times(self):
         if not self.execution_times:
-            print("Aucun temps d'exécution enregistré.")
+            print("Any time recorded yet.")
             return
 
         algos = list(self.execution_times.keys())
@@ -222,8 +216,8 @@ class SortingVisualizer:
 
         plt.figure(figsize=(6, 4))
         plt.bar(algos, times)
-        plt.ylabel("Temps (secondes)")
-        plt.title("Comparaison des temps d'exécution")
+        plt.ylabel("Time (seconds)")
+        plt.title("Compare times of sorting algorithms")
         plt.tight_layout()
         plt.show()
 
@@ -243,8 +237,10 @@ def save_history(algo_name, sorted_list, exec_time):
     try:
         with open("source/graphical/history.json", "r", encoding="utf-8") as f:
             data = json.load(f)
+
     except (FileNotFoundError, json.JSONDecodeError):
         data = []
+        print("Error reading history file. Creating a new one.")
 
     data.append(history_entry)
 

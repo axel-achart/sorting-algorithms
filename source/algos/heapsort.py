@@ -16,7 +16,7 @@ def heapsort_sort(lst, draw_callback=None, delay=0.01):
 
         # Optional: visualize the array after each swap
         if draw_callback:
-            draw_callback(lst)
+            draw_callback(lst, color=COLOR_SEVEN)
             time.sleep(delay)
 
         # Call heapify on the reduced heap (ignore the sorted part at the end)

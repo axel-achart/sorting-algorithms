@@ -26,7 +26,7 @@ def merge(left, right, draw_callback=None, delay=0):
             result.append(right[j])
             j += 1
         if draw_callback:
-            draw_callback(result + left[i:] + right[j:])
+            draw_callback(result + left[i:] + right[j:], color=COLOR_SIX)
             time.sleep(delay)
 
     result.extend(left[i:])

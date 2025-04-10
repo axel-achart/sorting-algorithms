@@ -321,7 +321,7 @@ class SortingVisualizer:
         algos = list(self.execution_times.keys())
         times = list(self.execution_times.values())
 
-        plt.figure(figsize=(6, 4))
+        plt.figure(figsize=(12, 6))
         plt.bar(algos, times)
         plt.ylabel("Time (seconds)")
         plt.title("Compare times of sorting algorithms")

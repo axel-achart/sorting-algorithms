@@ -236,9 +236,6 @@ class SortingVisualizer:
         save_history("Comb Sort", self.data, elapsed)
         self.execution_times["Comb Sort"] = elapsed
 
-        save_history("Selection Sort", self.data, elapsed)
-        self.execution_times["Selection Sort"] = elapsed
-        
     def animate_fusion_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")
 

@@ -1,4 +1,4 @@
-# Configurations
+
 ROOT_WIDTH = 800
 ROOT_HEIGHT = 400
 

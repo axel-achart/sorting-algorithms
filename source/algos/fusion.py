@@ -1,4 +1,3 @@
-#  Diviser pour régner
 
 from config import *
 import time

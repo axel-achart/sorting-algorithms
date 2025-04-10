@@ -1,4 +1,3 @@
-# source/algos/selection_sort.py
 
 def selection_sort(lst):
     sorted_lst = lst.copy()

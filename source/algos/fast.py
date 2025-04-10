@@ -9,7 +9,7 @@ def partition(lst, bot, top):
         if lst[j] < pivot:
             i = i + 1
             lst[j], lst[i] = lst[i], lst[j]
-    lst[i + 1], lst[top] = lst[top], lst[i + 1]  # Place the pivot in the correct position
+    lst[i + 1], lst[top] = lst[top], lst[i + 1]  
     return i + 1
 
 def fast(lst,bot,top):

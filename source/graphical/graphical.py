@@ -1,4 +1,3 @@
-# source/graphical/graphical.py
 
 from config import *
 import tkinter as tk
@@ -16,7 +15,6 @@ from source.algos.fusion import fusion_sort
 from source.algos.fast import fast
 from source.algos.comb_sort import comb_sort
 
-# Dictionary Algorithm Sort
 algorithms = {
     "Selection Sort": selection_sort,
     "Bubble Sort": bubble_sort,
@@ -35,7 +33,6 @@ class SortingVisualizer:
         self.canvas.pack(padx=10, pady=10)
         self.execution_times = {}
         
-       # Controls
         control_frame = tk.Frame(root)
         control_frame.pack()
 
@@ -47,11 +44,9 @@ class SortingVisualizer:
         tk.Button(control_frame, text="View History", command=self.show_history).pack(side=tk.LEFT, padx=5)
         tk.Button(control_frame, text="Compare times", command=self.plot_execution_times).pack(side=tk.LEFT, padx=5)
 
-        # Label to show the time taken to sort
         self.time_label = tk.Label(root, text="Time to sort : 0.000000 s", font=FONT)
         self.time_label.pack(pady=5)
 
-        # Size of the list
         self.list_size = tk.IntVar(value=50)
         tk.Label(control_frame, text="List Size").pack(side=tk.LEFT, padx=5)
         tk.Scale(control_frame, from_=10, to=100, orient=tk.HORIZONTAL, variable=self.list_size).pack(side=tk.LEFT, padx=5)

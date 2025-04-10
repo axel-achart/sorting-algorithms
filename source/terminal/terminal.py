@@ -1,4 +1,3 @@
-# source/terminal/terminal.py
 
 import time
 from source.sorting.sorting import sorting_algorithms

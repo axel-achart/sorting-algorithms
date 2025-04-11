@@ -142,9 +142,9 @@ class SortingVisualizer:
         print(f"List Sorted : {self.data}")
         print(f"Time to sorted : {elapsed:.6f} secondes")
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri par sélection", self.data, elapsed)
-        self.execution_times["Tri par sélection"] = elapsed
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Selection Sort", self.data, elapsed)
+        self.execution_times["Selection Sort"] = elapsed
 
     def animate_insertion_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")
@@ -171,9 +171,9 @@ class SortingVisualizer:
         print(f"List Sorted : {self.data}")
         print(f"Time to sorted : {elapsed:.6f} secondes")
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri par insertion", self.data, elapsed)
-        self.execution_times["Tri par insertion"] = elapsed
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Insertion Sort", self.data, elapsed)
+        self.execution_times["Insertion Sort"] = elapsed
 
     def animate_fast_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")
@@ -194,9 +194,9 @@ class SortingVisualizer:
         print(f"List Sorted : {self.data}")
         print(f"Time to sorted : {elapsed:.6f} secondes")
 
-        self.time_label.config(text=f"Temps d'exécution : {elapsed:.6f} s")
-        save_history("Tri rapide", self.data, elapsed)
-        self.execution_times["Tri rapide"] = elapsed
+        self.time_label.config(text=f"Time to sorted : {elapsed:.6f} s")
+        save_history("Quick Sort", self.data, elapsed)
+        self.execution_times["Quick Sort"] = elapsed
 
     
     def animate_comb_sort(self):

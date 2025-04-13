@@ -6,6 +6,7 @@ import time
 import json
 from datetime import datetime
 import matplotlib.pyplot as plt
+import tracemalloc
 
 from source.algos.selection_sort import selection_sort
 from source.algos.bubble_sort import bubble_sort
@@ -76,6 +77,10 @@ class SortingVisualizer:
         algo_name = self.algo_var.get()
         self.data = self.original_data.copy() 
         self.draw_data(self.data)
+
+        tracemalloc.start()
+        tracemalloc.reset_peak()
+
         if algo_name == "Bubble Sort":
             self.animate_bubble_sort()
         elif algo_name == "Selection Sort":
@@ -90,6 +95,11 @@ class SortingVisualizer:
             self.animate_insertion_sort()
         elif algo_name == "Comb Sort":
             self.animate_comb_sort()
+
+        peak = tracemalloc.get_traced_memory()
+        print(f"Peak memory usage: {peak / 10**6:.2f} MB")
+
+        tracemalloc.stop()
 
     def animate_bubble_sort(self):
         self.time_label.config(text=f"Time to sorted : 0.000000 s")

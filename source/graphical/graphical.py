@@ -97,7 +97,7 @@ class SortingVisualizer:
             self.animate_comb_sort()
 
         peak = tracemalloc.get_traced_memory()
-        print(f"Peak memory usage: {peak / 10**6:.2f} MB")
+        print(f"Peak memory usage: {peak[1] / 10**6:.2f} MB")
 
         tracemalloc.stop()
 
